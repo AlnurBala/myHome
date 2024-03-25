@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  app:
+    image: app_image
+    container_name: app_con
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - app-data:/usr/src/app
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456    
+    networks:
+      - apinetwork
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: my_postgres
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5432:5432"
+#    volumes:
+#      - C:\Users\user\Desktop\MyHome\myHome:/var/lib/docker/containers/zen_poincare/hosts
+    networks:
+      - apinetwork
+
+volumes:
+  postgres-data:  # Defines a named volume for persisting PostgreSQL data
+  app-data:
+
+networks:
+  apinetwork:
+    driver: bridge

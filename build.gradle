@@ -1,0 +1,69 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.5'
+	id 'io.spring.dependency-management' version '1.1.3'
+}
+
+group = 'com.startup'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.projectlombok:lombok:1.18.22'
+	testImplementation 'junit:junit:4.13.1'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation group: 'net.javacrumbs.shedlock', name: 'shedlock-spring', version: "$shedlockVersion"
+	implementation group: 'net.javacrumbs.shedlock', name: 'shedlock-provider-jdbc-template', version: "$shedlockVersion"
+	implementation group: 'org.mapstruct', name: 'mapstruct', version: "$mapstructVersion"
+	annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: "${mapstructProcessorVersion}"
+	implementation 'org.liquibase:liquibase-core'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.postgresql:postgresql:42.7.2'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.4'
+
+	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '6.1.2'
+	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '6.1.2'
+	implementation group: 'org.springframework.security', name: 'spring-security-config', version: '6.1.2'
+
+
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'com.google.guava:guava:33.0.0-jre'
+	compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+	implementation 'ch.qos.logback:logback-core:1.4.14'
+	implementation 'org.slf4j:slf4j-api:2.0.11'
+
+	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+}
+
+tasks.named('bootBuildImage') {
+	builder = 'paketobuildpacks/builder-jammy-base:latest'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

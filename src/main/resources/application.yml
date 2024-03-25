@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://94.20.154.217:5432/postgres
+    username: postgres
+    password: 123456
+  jpa:
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+    hibernate:
+      ddl-auto: update
+  application:
+    name: liquibase
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.xml
+    default-schema: public
+    enabled: true
+  logging:
+    level:
+      liquibase: DEBUG
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ulduzsafarli.dv@gmail.com
+    password: wsvqrpuwimbmgptm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  docker:
+    compose:
+      enabled: false
+server:
+  port: 8084
+mail:
+  from: ulduzsafarli.dv@gmail.com
+  to: ilkinaliyev365@gmail.com
+
