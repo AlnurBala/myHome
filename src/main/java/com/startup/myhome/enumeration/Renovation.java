@@ -2,6 +2,6 @@ package com.startup.myhome.enumeration;
 
 public enum Renovation {
     Var,
-    Yox,
+    Yoxdur,
     Verilmiyib
 }
